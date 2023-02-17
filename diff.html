@@ -1,0 +1,768 @@
+﻿<html>
+<head></head>
+<body>
+
+<script>
+
+DateCoreAPI = {_aDayName: ["일", "월", "화", "수", "목", "금", "토"],_aLunarMonthTable: [[2, 1, 5, 2, 2, 1, 2, 1, 2, 1, 2, 1], [2, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 5, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2], [1, 2, 1, 2, 3, 2, 1, 1, 2, 2, 1, 2], [2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1], [2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2], [1, 2, 2, 4, 1, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2], [1, 5, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 5, 1, 2, 2, 1, 2, 2], [2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2], [2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2], [2, 2, 1, 2, 5, 1, 2, 1, 2, 1, 1, 2], [2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 3, 2, 1, 2, 2, 1, 2, 2, 1, 2, 1], [2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 5, 2, 2, 1, 2, 2], [1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2], [2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2], [2, 1, 2, 2, 3, 2, 1, 1, 2, 1, 2, 2], [1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2], [2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 1], [2, 1, 2, 5, 2, 1, 2, 2, 1, 2, 1, 2], [1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2], [1, 5, 1, 2, 1, 1, 2, 2, 1, 2, 2, 2], [1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2], [1, 2, 2, 1, 1, 5, 1, 2, 1, 2, 2, 1], [2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1], [2, 2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2], [1, 2, 2, 1, 6, 1, 2, 1, 2, 1, 1, 2], [1, 2, 1, 2, 2, 1, 2, 2, 1, 2, 1, 2], [1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 4, 1, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1], [2, 2, 1, 1, 2, 1, 4, 1, 2, 2, 1, 2], [2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2], [2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 2, 1, 2, 2, 4, 1, 1, 2, 1, 2, 1], [2, 1, 2, 2, 1, 2, 2, 1, 2, 1, 1, 2], [1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 2], [1, 1, 2, 4, 1, 2, 1, 2, 2, 1, 2, 2], [1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2], [2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2], [2, 5, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2], [2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2], [2, 2, 1, 2, 1, 2, 3, 2, 1, 2, 1, 2], [2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 2, 4, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 2, 2], [1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2], [2, 1, 4, 1, 1, 2, 1, 2, 1, 2, 2, 2], [1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2], [2, 1, 2, 1, 2, 1, 1, 5, 2, 1, 2, 2], [1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2], [1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1], [2, 1, 2, 1, 2, 5, 2, 1, 2, 1, 2, 1], [2, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 2, 3, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2], [1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2], [1, 2, 5, 2, 1, 1, 2, 1, 1, 2, 2, 1], [2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2], [1, 2, 2, 1, 2, 1, 5, 2, 1, 2, 1, 2], [1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2], [1, 2, 1, 1, 5, 2, 1, 2, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 1], [2, 2, 1, 5, 1, 2, 1, 1, 2, 2, 1, 2], [2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2], [2, 2, 1, 2, 1, 2, 1, 5, 2, 1, 1, 2], [2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 1], [2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 1, 1, 2, 1, 6, 1, 2, 2, 1, 2, 1], [2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2], [1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2], [2, 1, 2, 3, 2, 1, 1, 2, 2, 1, 2, 2], [2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2], [2, 1, 2, 2, 1, 1, 2, 1, 1, 5, 2, 2], [1, 2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2], [1, 2, 2, 1, 2, 2, 1, 2, 1, 2, 1, 1], [2, 1, 2, 2, 1, 5, 2, 2, 1, 2, 1, 2], [1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2], [1, 2, 1, 1, 5, 1, 2, 2, 1, 2, 2, 2], [1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2], [1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2], [1, 2, 5, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2], [1, 2, 2, 1, 2, 2, 1, 5, 2, 1, 1, 2], [1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2], [1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 1, 2, 3, 2, 2, 1, 2, 2, 2, 1], [2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1], [2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1], [2, 2, 2, 3, 2, 1, 1, 2, 1, 2, 1, 2], [2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2], [1, 5, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1], [2, 1, 2, 1, 2, 1, 5, 2, 2, 1, 2, 2], [1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2], [2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2], [2, 2, 1, 1, 5, 1, 2, 1, 2, 1, 2, 2], [2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2], [2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 1, 6, 2, 1, 2, 1, 1, 2, 1, 2, 1], [2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2], [1, 2, 1, 2, 1, 2, 1, 2, 5, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2, 1], [2, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2], [1, 2, 1, 2, 3, 2, 1, 2, 1, 2, 2, 2], [1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2], [2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2], [2, 1, 2, 5, 2, 1, 1, 2, 1, 2, 1, 2], [1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1], [2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2], [1, 5, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1], [2, 1, 2, 1, 1, 5, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2], [1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2], [1, 2, 2, 1, 5, 1, 2, 1, 1, 2, 2, 1], [2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2], [1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1], [2, 1, 5, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 5, 2], [1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1], [2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2], [2, 2, 1, 2, 1, 4, 1, 1, 2, 2, 1, 2], [2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2], [2, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1], [2, 2, 1, 2, 5, 2, 1, 2, 1, 2, 1, 1], [2, 1, 2, 2, 1, 2, 2, 1, 2, 1, 2, 1], [2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 2], [1, 5, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2], [1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2], [2, 1, 2, 1, 1, 2, 3, 2, 1, 2, 2, 2], [2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2]],_aSolarMatchTable: [{year: [1898, 1899],month: [1, 2],date: [22, 9]}, {year: [1899, 1900],month: [2, 1],date: [10, 30]}, {year: [1900, 1901],month: [1, 2],date: [31, 18]}, {year: [1901, 1902],month: [2, 2],date: [19, 7]}, {year: [1902, 1903],month: [2, 1],date: [8, 28]}, {year: [1903, 1904],month: [1, 2],date: [29, 15]}, {year: [1904, 1905],month: [2, 2],date: [16, 3]}, {year: [1905, 1906],month: [2, 1],date: [4, 24]}, {year: [1906, 1907],month: [1, 2],date: [25, 12]}, {year: [1907, 1908],month: [2, 2],date: [13, 1]}, {year: [1908, 1909],month: [2, 1],date: [2, 21]}, {year: [1909, 1910],month: [1, 2],date: [22, 9]}, {year: [1910, 1911],month: [2, 1],date: [10, 29]}, {year: [1911, 1912],month: [1, 2],date: [30, 17]}, {year: [1912, 1913],month: [2, 2],date: [18, 5]}, {year: [1913, 1914],month: [2, 1],date: [6, 25]}, {year: [1914, 1915],month: [1, 2],date: [26, 13]}, {year: [1915, 1916],month: [2, 2],date: [14, 3]}, {year: [1916, 1917],month: [2, 1],date: [4, 22]}, {year: [1917, 1918],month: [1, 2],date: [23, 10]}, {year: [1918, 1919],month: [2, 1],date: [11, 31]}, {year: [1919, 1920],month: [2, 2],date: [1, 19]}, {year: [1920, 1921],month: [2, 2],date: [20, 7]}, {year: [1921, 1922],month: [2, 1],date: [8, 27]}, {year: [1922, 1923],month: [1, 2],date: [28, 15]}, {year: [1923, 1924],month: [2, 2],date: [16, 4]}, {year: [1924, 1925],month: [2, 1],date: [5, 23]}, {year: [1925, 1926],month: [1, 2],date: [24, 12]}, {year: [1926, 1927],month: [2, 2],date: [13, 1]}, {year: [1927, 1928],month: [2, 1],date: [2, 22]}, {year: [1928, 1929],month: [1, 2],date: [23, 9]}, {year: [1929, 1930],month: [2, 1],date: [10, 29]}, {year: [1930, 1931],month: [1, 2],date: [30, 16]}, {year: [1931, 1932],month: [2, 2],date: [17, 5]}, {year: [1932, 1933],month: [2, 1],date: [6, 25]}, {year: [1933, 1934],month: [1, 2],date: [26, 13]}, {year: [1934, 1935],month: [2, 2],date: [14, 3]}, {year: [1935, 1936],month: [2, 1],date: [4, 23]}, {year: [1936, 1937],month: [1, 2],date: [24, 10]}, {year: [1937, 1938],month: [2, 1],date: [11, 30]}, {year: [1938, 1939],month: [1, 2],date: [31, 18]}, {year: [1939, 1940],month: [2, 2],date: [19, 7]}, {year: [1940, 1941],month: [2, 1],date: [8, 26]}, {year: [1941, 1942],month: [1, 2],date: [27, 14]}, {year: [1942, 1943],month: [2, 2],date: [15, 4]}, {year: [1943, 1944],month: [2, 1],date: [5, 25]}, {year: [1944, 1945],month: [1, 2],date: [26, 12]}, {year: [1945, 1946],month: [2, 2],date: [13, 1]}, {year: [1946, 1947],month: [2, 1],date: [2, 21]}, {year: [1947, 1948],month: [1, 2],date: [22, 9]}, {year: [1948, 1949],month: [2, 1],date: [10, 28]}, {year: [1949, 1950],month: [1, 2],date: [29, 16]}, {year: [1950, 1951],month: [2, 2],date: [17, 5]}, {year: [1951, 1952],month: [2, 1],date: [6, 26]}, {year: [1952, 1953],month: [1, 2],date: [27, 13]}, {year: [1953, 1954],month: [2, 2],date: [14, 3]}, {year: [1954, 1955],month: [2, 1],date: [4, 23]}, {year: [1955, 1956],month: [1, 2],date: [24, 11]}, {year: [1956, 1957],month: [2, 1],date: [12, 30]}, {year: [1957, 1958],month: [1, 2],date: [31, 18]}, {year: [1958, 1959],month: [2, 2],date: [19, 7]}, {year: [1959, 1960],month: [2, 1],date: [8, 27]}, {year: [1960, 1961],month: [1, 2],date: [28, 14]}, {year: [1961, 1962],month: [2, 2],date: [15, 4]}, {year: [1962, 1963],month: [2, 1],date: [5, 24]}, {year: [1963, 1964],month: [1, 2],date: [25, 12]}, {year: [1964, 1965],month: [2, 2],date: [13, 1]}, {year: [1965, 1966],month: [2, 1],date: [2, 21]}, {year: [1966, 1967],month: [1, 2],date: [22, 8]}, {year: [1967, 1968],month: [2, 1],date: [9, 29]}, {year: [1968, 1969],month: [1, 2],date: [30, 16]}, {year: [1969, 1970],month: [2, 2],date: [17, 5]}, {year: [1970, 1971],month: [2, 1],date: [6, 26]}, {year: [1971, 1972],month: [1, 2],date: [27, 14]}, {year: [1972, 1973],month: [2, 2],date: [15, 2]}, {year: [1973, 1974],month: [2, 1],date: [3, 22]}, {year: [1974, 1975],month: [1, 2],date: [23, 10]}, {year: [1975, 1976],month: [2, 1],date: [11, 30]}, {year: [1976, 1977],month: [1, 2],date: [31, 17]}, {year: [1977, 1978],month: [2, 2],date: [18, 6]}, {year: [1978, 1979],month: [2, 1],date: [7, 27]}, {year: [1979, 1980],month: [1, 2],date: [28, 15]}, {year: [1980, 1981],month: [2, 2],date: [16, 4]}, {year: [1981, 1982],month: [2, 1],date: [5, 24]}, {year: [1982, 1983],month: [1, 2],date: [25, 12]}, {year: [1983, 1984],month: [2, 2],date: [13, 1]}, {year: [1984, 1985],month: [2, 2],date: [2, 19]}, {year: [1985, 1986],month: [2, 2],date: [20, 8]}, {year: [1986, 1987],month: [2, 1],date: [9, 28]}, {year: [1987, 1988],month: [1, 2],date: [29, 17]}, {year: [1988, 1989],month: [2, 2],date: [18, 5]}, {year: [1989, 1990],month: [2, 1],date: [6, 26]}, {year: [1990, 1991],month: [1, 2],date: [27, 14]}, {year: [1991, 1992],month: [2, 2],date: [15, 3]}, {year: [1992, 1993],month: [2, 1],date: [4, 22]}, {year: [1993, 1994],month: [1, 2],date: [23, 9]}, {year: [1994, 1995],month: [2, 1],date: [10, 30]}, {year: [1995, 1996],month: [1, 2],date: [31, 18]}, {year: [1996, 1997],month: [2, 2],date: [19, 7]}, {year: [1997, 1998],month: [2, 1],date: [8, 27]}, {year: [1998, 1999],month: [1, 2],date: [28, 15]}, {year: [1999, 2000],month: [2, 2],date: [16, 4]}, {year: [2000, 2001],month: [2, 1],date: [5, 23]}, {year: [2001, 2002],month: [1, 2],date: [24, 11]}, {year: [2002, 2003],month: [2, 1],date: [12, 31]}, {year: [2003, 2004],month: [2, 1],date: [1, 21]}, {year: [2004, 2005],month: [1, 2],date: [22, 8]}, {year: [2005, 2006],month: [2, 1],date: [9, 28]}, {year: [2006, 2007],month: [1, 2],date: [29, 17]}, {year: [2007, 2008],month: [2, 2],date: [18, 6]}, {year: [2008, 2009],month: [2, 1],date: [7, 25]}, {year: [2009, 2010],month: [1, 2],date: [26, 13]}, {year: [2010, 2011],month: [2, 2],date: [14, 2]}, {year: [2011, 2012],month: [2, 1],date: [3, 22]}, {year: [2012, 2013],month: [1, 2],date: [23, 9]}, {year: [2013, 2014],month: [2, 1],date: [10, 30]}, {year: [2014, 2015],month: [1, 2],date: [31, 18]}, {year: [2015, 2016],month: [2, 2],date: [19, 7]}, {year: [2016, 2017],month: [2, 1],date: [8, 27]}, {year: [2017, 2018],month: [1, 2],date: [28, 15]}, {year: [2018, 2019],month: [2, 2],date: [16, 4]}, {year: [2019, 2020],month: [2, 1],date: [5, 24]}, {year: [2020, 2021],month: [1, 2],date: [25, 11]}, {year: [2021, 2022],month: [2, 1],date: [12, 31]}, {year: [2022, 2023],month: [2, 1],date: [1, 21]}, {year: [2023, 2024],month: [1, 2],date: [22, 9]}, {year: [2024, 2025],month: [2, 1],date: [10, 28]}, {year: [2025, 2026],month: [1, 2],date: [29, 16]}, {year: [2026, 2027],month: [2, 2],date: [17, 6]}, {year: [2027, 2028],month: [2, 1],date: [7, 26]}, {year: [2028, 2029],month: [1, 2],date: [27, 12]}, {year: [2029, 2030],month: [2, 2],date: [13, 2]}, {year: [2030, 2031],month: [2, 1],date: [3, 22]}, {year: [2031, 2032],month: [1, 2],date: [23, 10]}, {year: [2032, 2033],month: [2, 1],date: [11, 30]}, {year: [2033, 2034],month: [1, 2],date: [31, 18]}, {year: [2034, 2035],month: [2, 2],date: [19, 7]}, {year: [2035, 2036],month: [2, 1],date: [8, 27]}, {year: [2036, 2037],month: [1, 2],date: [28, 14]}, {year: [2037, 2038],month: [2, 2],date: [15, 3]}, {year: [2038, 2039],month: [2, 1],date: [4, 23]}, {year: [2039, 2040],month: [1, 2],date: [24, 11]}, {year: [2040, 2041],month: [2, 1],date: [12, 31]}, {year: [2041, 2042],month: [2, 1],date: [1, 21]}, {year: [2042, 2043],month: [1, 2],date: [22, 9]}, {year: [2043, 2044],month: [2, 1],date: [10, 29]}, {year: [2044, 2045],month: [1, 2],date: [30, 16]}, {year: [2045, 2046],month: [2, 2],date: [17, 6]}],_aTheTenCelestialStems: ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"],_a12ZodiacAnimalSigns: ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"],_aTheTenCelestialStemsKor: ["갑", "을", " 병", "정", "무", "기", "경", "신", "임", "계"],_a12ZodiacAnimalSignsKor: ["자", "축", "인", "묘", "진", "사", "오", "미", "신", "유", "술", "해"],_nRealMinYear: 1898,_nRealMaxYear: 2045,_nUnlimiteMinYear: 1900,_nUnlimiteMaxYear: 2043,_oUnlimiteFirstDate: {year: 1900,month: 1,date: 1,monthtype: 0,hour: 0,minute: 0,second: 0},_oUnlimiteLastDate: {year: 2043,month: 12,date: 31,monthtype: 0,hour: 23,minute: 59,second: 59},getRealMinYear: function() {
+        return this._nRealMinYear;
+    },getRealMaxYear: function() {
+        return this._nRealMaxYear;
+    },getMinYear: function() {
+        return this._nUnlimiteMinYear;
+    },getMaxYear: function() {
+        return this._nUnlimiteMaxYear;
+    },checkMinDate: function(c) {
+        if (!c) {
+            return false;
+        }
+        var a = true;
+        var b = this.getFirstDate();
+        var d = this.getDistanceUseDate(b, c);
+        if (d < 0) {
+            a = false;
+        }
+        return a;
+    },checkMaxDate: function(c) {
+        if (!c) {
+            return false;
+        }
+        var b = true;
+        var a = this.getLastDate();
+        var d = this.getDistanceUseDate(a, c);
+        if (d > 0) {
+            b = false;
+        }
+        return b;
+    },getFirstDate: function() {
+        var a = this._oUnlimiteFirstDate;
+        return {year: a.year,month: a.month,date: a.date,monthtype: a.monthtype,hour: a.hour,minute: a.minute,second: a.second};
+    },getLastDate: function() {
+        var a = this._oUnlimiteLastDate;
+        return {year: a.year,month: a.month,date: a.date,monthtype: a.monthtype,hour: a.hour,minute: a.minute,second: a.second};
+    },checkDate: function(f, d) {
+        var c = d || false;
+        var a = false;
+        if (f.monthtype > 0) {
+            var g = this.getCalculateSolarLunar(f);
+            if (g.year >= this.getMinYear() && g.year <= this.getMaxYear()) {
+                var b = this.getCalculateSolarLunar(g);
+                if (f.year == b.year && f.month == b.month && f.date == b.date && f.monthtype == b.monthtype) {
+                    a = true;
+                }
+            }
+        } else {
+            if ((f.month >= 1 && f.month <= 12) && (f.date >= 1 && f.date <= 31)) {
+                if (c) {
+                    var e = this.getJavascriptDateFormat(f);
+                    if (f.date == e.getDate()) {
+                        a = true;
+                    }
+                } else {
+                    if (f.year >= this.getMinYear() && f.year <= this.getMaxYear()) {
+                        var e = this.getJavascriptDateFormat(f);
+                        if (f.date == e.getDate()) {
+                            a = true;
+                        }
+                    }
+                }
+            }
+        }
+        return a;
+    },oCoreDate: function(m, f, a, n, e, d, p) {
+        var o = {year: 0,month: 1,date: 1,monthtype: 0,hour: 0,minute: 0,second: 0};
+        var h = Number(m);
+        o.year = h;
+        var l = Number(f);
+        if (l > 1) {
+            o.month = l;
+        }
+        var k = Number(a);
+        if (k > 1) {
+            o.date = k;
+        }
+        var j = Number(e);
+        if (j > 0) {
+            o.hour = j;
+        }
+        var g = Number(d);
+        if (g > 0) {
+            o.minute = g;
+        }
+        var c = Number(p);
+        if (c > 0) {
+            o.second = c;
+        }
+        var b = Number(n);
+        if (b == 1 || b == 2) {
+            o.monthtype = b;
+        }
+        return o;
+    },getCoreDateFormat: function(c, d) {
+        var b = null;
+        if (!d) {
+            d = 0;
+        }
+        if (c.constructor == Date) {
+            b = this.oCoreDate(c.getFullYear(), c.getMonth() + 1, c.getDate(), 0, c.getHours(), c.getMinutes(), c.getSeconds());
+        } else {
+            if (c.constructor == String) {
+                var a = /^([0-9]{4,})-([01][0-9])-([0-3][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])/;
+                var e = c.match(a);
+                if (!e) {
+                    a = /^([0-9]{4,})-([01][0-9])-([0-3][0-9])/;
+                    e = c.match(a);
+                    if (e) {
+                        b = this.oCoreDate(e[1], e[2], e[3], d);
+                    }
+                } else {
+                    b = this.oCoreDate(e[1], e[2], e[3], d, e[4], e[5], e[6]);
+                }
+            }
+        }
+        return b;
+    },getJavascriptDateFormat: function(b) {
+        var d = null;
+        if (b.constructor == String) {
+            var a = /^([0-9]{4,})-([01][0-9])-([0-3][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])/;
+            var c = b.match(a);
+            if (!c) {
+                a = /^([0-9]{4,})-([01][0-9])-([0-3][0-9])/;
+                c = b.match(a);
+                if (c) {
+                    d = new Date(c[1], Number(c[2]) - 1, c[3]);
+                }
+            } else {
+                d = new Date(c[1], Number(c[2]) - 1, c[3], c[4], c[5], c[6]);
+            }
+        } else {
+            if (b.monthtype >= 1) {
+                b = this.getCalculateSolarLunar(b);
+            }
+            d = new Date(b.year, b.month - 1, b.date, b.hour, b.minute, b.second);
+        }
+        return d;
+    },getDateFormat: function(c) {
+        if (!c) {
+            return c;
+        }
+        var g = c.year;
+        var a = this.getTwoDigit(c.month);
+        var f = this.getTwoDigit(c.date);
+        var d = this.getTwoDigit(c.hour);
+        var b = this.getTwoDigit(c.minute);
+        var e = this.getTwoDigit(c.second);
+        return g + "-" + a + "-" + f + " " + d + ":" + b + ":" + e;
+    },getCustomDateFormat: function(e, b) {
+        var a = b.replace(/(y{4})/g, e.year);
+        if (a.indexOf("y") != -1) {
+            a = a.replace(/(y{2})/g, String(e.year).substr(2, 2));
+        }
+        if (a.indexOf("m") != -1) {
+            a = a.replace(/(m{2})/g, this.getTwoDigit(e.month));
+            a = a.replace(/(m)/g, e.month);
+        }
+        if (a.indexOf("d") != -1) {
+            a = a.replace(/(d{2})/g, this.getTwoDigit(e.date));
+            a = a.replace(/(d)/g, e.date);
+        }
+        if (a.indexOf("H") != -1) {
+            a = a.replace(/(H{2})/g, this.getTwoDigit(e.hour));
+            a = a.replace(/(H)/g, e.hour);
+        }
+        if (a.indexOf("i") != -1) {
+            a = a.replace(/(i{2})/g, this.getTwoDigit(e.minute));
+            a = a.replace(/(i)/g, e.minute);
+        }
+        if (a.indexOf("s") != -1) {
+            a = a.replace(/(s{2})/g, this.getTwoDigit(e.second));
+            a = a.replace(/(s)/g, e.second);
+        }
+        if (a.indexOf("D") != -1) {
+            a = a.replace(/(D)/g, this._aDayName[this.getDay(e)]);
+        }
+        if (a.indexOf("h") != -1) {
+            a = a.replace(/(h{2})/g, this.get12Hour(e.hour, true));
+            a = a.replace(/(h)/g, this.get12Hour(e.hour, false));
+        }
+        switch (e.monthtype) {
+            case 0:
+                var c = null;
+                var d = "<span>(음)</span> ";
+                if (a.indexOf("L") != -1) {
+                    c = this.getCalculateSolarLunar(e);
+                    if (c.monthtype == 2) {
+                        d = "<span>(윤)</span> ";
+                    }
+                    a = a.replace(/(L{2})/g, d + c.year + "." + this.getTwoDigit(c.month) + "." + this.getTwoDigit(c.date));
+                    a = a.replace(/(L)/g, d + this.getTwoDigit(c.month) + "." + this.getTwoDigit(c.date));
+                } else {
+                    if (a.indexOf("l") != -1) {
+                        c = this.getCalculateSolarLunar(e);
+                        d = "<span>음력</span> ";
+                        if (c.monthtype == 2) {
+                            d = "<span>윤달</span> ";
+                        }
+                        a = a.replace(/(l{2})/g, d + c.year + "." + this.getTwoDigit(c.month) + "." + this.getTwoDigit(c.date));
+                        a = a.replace(/(l)/g, d + this.getTwoDigit(c.month) + "." + this.getTwoDigit(c.date));
+                    }
+                }
+                break;
+            case 1:
+                if (a.indexOf("L") != -1) {
+                    a = a.replace(/(L{2})/g, "<span>(음)</span> " + e.year + "." + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                    a = a.replace(/(L)/g, "<span>(음)</span> " + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                } else {
+                    if (a.indexOf("l") != -1) {
+                        a = a.replace(/(l{2})/g, "<span>음력</span> " + e.year + "." + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                        a = a.replace(/(l)/g, "<span>음력</span> " + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                    }
+                }
+                break;
+            case 2:
+                if (a.indexOf("L") != -1) {
+                    a = a.replace(/(L{2})/g, "<span>(윤)</span> " + e.year + "." + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                    a = a.replace(/(L)/g, "<span>(윤)</span> " + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                } else {
+                    if (a.indexOf("l") != -1) {
+                        a = a.replace(/(l{2})/g, "<span>윤달</span> " + e.year + "." + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                        a = a.replace(/(l)/g, "<span>윤달</span> " + this.getTwoDigit(e.month) + "." + this.getTwoDigit(e.date));
+                    }
+                }
+                break;
+        }
+        return a;
+    },get12Hour: function(c, a) {
+        c = Number(c);
+        if (c >= 0 && c <= 24) {
+            var b = "";
+            var d = 0;
+            if (c === 0 || c == 24) {
+                b = "<span>오전</span> ";
+                d = 12;
+            } else {
+                if (c < 12) {
+                    b = "<span>오전</span> ";
+                    d = c;
+                } else {
+                    b = "<span>오후</span> ";
+                    if (c == 12) {
+                        d = c;
+                    } else {
+                        d = c - 12;
+                    }
+                }
+            }
+            if (a) {
+                b = b + this.getTwoDigit(d);
+            } else {
+                b = b + d;
+            }
+            return b;
+        } else {
+            return null;
+        }
+    },getTwoDigit: function(c) {
+        var b = null;
+        var a = Number(c);
+        if (a < 10) {
+            b = "0" + a;
+        } else {
+            b = String(a);
+        }
+        return b;
+    },getStartDayOfMonth: function(c, e, d) {
+        var a = 1;
+        if (d >= 1) {
+            var b = this.oCoreDate(c, e, a, d);
+            b = this.getCalculateSolarLunar(b);
+            c = b.year;
+            e = b.month;
+            a = b.date;
+        }
+        var f = new Date(c, e - 1, a);
+        return f.getDay();
+    },getDateOfMonth: function(d, f, e) {
+        if (e >= 1) {
+            var b = this._aLunarMonthTable[d - this.getRealMinYear()];
+            var c = this._getDateOfLunarMonthType(b[f - 1]);
+            if (e == 1) {
+                return c.nMonthDate;
+            } else {
+                return c.nLeapMonthDate;
+            }
+        } else {
+            if (f > 12 || f < 1) {
+                var g = new Date(d, f - 1, 1);
+                d = g.getFullYear();
+                f = g.getMonth() + 1;
+            }
+            var a = 0;
+            switch (f) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    a = 31;
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    a = 30;
+                    break;
+                case 2:
+                    if (d % 4 === 0 && d % 100 !== 0 || d % 400 === 0) {
+                        a = 29;
+                    } else {
+                        a = 28;
+                    }
+                    break;
+            }
+            return a;
+        }
+    },getDateUseDistanceMonth: function(f, d) {
+        var a = {year: f.year,month: f.month,date: f.date};
+        if (d >= 0) {
+            for (var c = 0; c < d; c++) {
+                a.month++;
+                if (a.month == 13) {
+                    a.month = 1;
+                    a.year++;
+                }
+            }
+        } else {
+            nTotalMonth = f.month - d;
+            nAddYear = -(nTotalMonth / 13 | 0);
+            nNewMonth = 12 - (nTotalMonth % 13);
+        }
+        var b = this.oCoreDate(a.year, a.month, a.date, 0);
+        var e = this.getDateOfMonth(b.year, b.month, b.monthtype);
+        if (b.date > e) {
+            b.date = e;
+        }
+        return b;
+    },getDistanceUseDateTime: function(d, c) {
+        var b = d;
+        var a = c;
+        if (d.monthtype > 0) {
+            b = this.getCalculateSolarLunar(d);
+        }
+        if (c.monthtype > 0) {
+            a = this.getCalculateSolarLunar(c);
+        }
+        return this._getSolarDistanceTime(b, a);
+    },getDistanceUseDate: function(d, c) {
+        var b = d;
+        var a = c;
+        if (d.monthtype > 0) {
+            b = this.getCalculateSolarLunar(d);
+        }
+        if (c.monthtype > 0) {
+            a = this.getCalculateSolarLunar(c);
+        }
+        return this._getSolarDistance(b, a);
+    },_getDistanceInfo: function(d, l) {
+        var j = d;
+        var e = l;
+        if (d.monthtype > 0) {
+            j = this.getCalculateSolarLunar(d);
+        }
+        if (l.monthtype > 0) {
+            e = this.getCalculateSolarLunar(l);
+        }
+        var h = e.year - j.year;
+        var c = e.month - j.month;
+        var a = e.date - j.date;
+        if (c < 0) {
+            h = h - 1;
+            c = 12 + c;
+        }
+        if (a < 0) {
+            c = c - 1;
+            if (c < 0) {
+                h = h - 1;
+                c = 12 + c;
+            }
+            var g = this.oCoreDate(e.year, e.month, 1);
+            var f = this.getDateUseDistance(g, -1, 0);
+            var b = f.date;
+            a = b + a;
+        }
+        var k = {year: h,month: c,date: a};
+        return k;
+    },getDistanceInfoUseDistance: function(f, c) {
+        var b = f;
+        if (f.monthtype > 0) {
+            b = this.getCalculateSolarLunar(f);
+        }
+        var e = this._getSolarDateUseDistance(b, c);
+        var d = (c >= 0) ? "plus" : "minus";
+        var a = (c >= 0) ? this._getDistanceInfo(b, e) : this._getDistanceInfo(e, b);
+        a.direction = d;
+        a.oDate = e;
+        return a;
+    },getDistanceInfoUseDate: function(c, b) {
+        var a = this.getDistanceUseDate(c, b);
+        return this.getDistanceInfoUseDistance(c, a);
+    },getDateUseDistance: function(e, b, c) {
+        var a = e;
+        if (e.monthtype > 0) {
+            a = this.getCalculateSolarLunar(e);
+        }
+        var d = this._getSolarDateUseDistance(a, b);
+        if (c >= 1) {
+            d = this.getCalculateSolarLunar(d);
+        }
+        return d;
+    },_getSolarDistance: function(d, b) {
+        var a = Date.UTC(d.year, d.month - 1, d.date);
+        var c = Date.UTC(b.year, b.month - 1, b.date);
+        return Math.floor((c - a) / (1000 * 60 * 60 * 24));
+    },_getSolarDistanceTime: function(d, b) {
+        var a = Date.UTC(d.year, d.month - 1, d.date, d.hour, d.minute, d.second);
+        var c = Date.UTC(b.year, b.month - 1, b.date, b.hour, b.minute, b.second);
+        return Math.floor((c - a) / (1000 * 60));
+    },_getSolarDateUseDistance: function(c, b) {
+        var a = new Date(c.year, c.month - 1, c.date + b, c.hour || 0, c.minute || 0);
+        return this.getCoreDateFormat(a);
+    },getSolarDateUseDistanceTime: function(c, b) {
+        var a = new Date(c.year, c.month - 1, c.date, c.hour, c.minute + b);
+        return this.getCoreDateFormat(a);
+    },getSolarDateList: function(d, c) {
+        var b = [];
+        for (var a = 0; a < c; a++) {
+            b.push(this._getSolarDateUseDistance(d, a));
+        }
+        return b;
+    },getDateList: function(e, d, b) {
+        var c = [];
+        if (b > 0) {
+            if (e.monthtype > 0) {
+                var a = this.getCalculateSolarLunar(e);
+                c = this.getCalculateSolarLunarList(a, d);
+            } else {
+                c = this.getCalculateSolarLunarList(e, d);
+            }
+        } else {
+            if (e.monthtype > 0) {
+                c = this.getCalculateSolarLunarList(e, d);
+            } else {
+                c = this.getSolarDateList(e, d);
+            }
+        }
+        return c;
+    },getCalculateSolarLunar: function(g) {
+        var d = {};
+        if (g.year !== 0) {
+            if ((typeof g.monthtype == "undefined") || g.monthtype === 0) {
+                var a = g.year - this.getRealMinYear();
+                var e = this._aSolarMatchTable.length;
+                var c = {nMoveIndex: 0,nDistance: 0};
+                do {
+                    c = this._IsRightIndex(g, a);
+                    if (c) {
+                        a = a + c.nMoveIndex;
+                    } else {
+                        return false;
+                    }
+                } while (c.nMoveIndex !== 0 && a < e && a >= 0);
+                d = this._getLunarDateUseDistance(a, c.nDistance);
+            } else {
+                var f = this._getLunarDistanceUseDate(g);
+                if (!f) {
+                    return false;
+                }
+                var b = this._aSolarMatchTable[f.nIndex];
+                d = this._getSolarDateUseDistance(this.oCoreDate(b.year[0], b.month[0], b.date[0], 0), f.nDistance);
+            }
+        }
+        return d;
+    },getCalculateSolarLunarList: function(b, j) {
+        var e = [];
+        if (b.monthtype >= 1) {
+            var f = this._getLunarDistanceUseDate(b);
+            if (!f) {
+                return false;
+            }
+            var g = this._aSolarMatchTable[f.nIndex];
+            var h = this._getSolarDateUseDistance(this.oCoreDate(g.year[0], g.month[0], g.date[0], 0), f.nDistance);
+            e = this.getSolarDateList(h, j);
+        } else {
+            var a = b.year - this.getRealMinYear();
+            var c = this._aSolarMatchTable.length;
+            var d = {nMoveIndex: 0,nDistance: 0};
+            do {
+                d = this._IsRightIndex(b, a);
+                if (d) {
+                    a = a + d.nMoveIndex;
+                } else {
+                    return false;
+                }
+            } while (d.nMoveIndex !== 0 && a < c && a >= 0);
+            e = this._getLunarDateListUseDistance(a, j, d.nDistance);
+        }
+        return e;
+    },_getLunarDateUseDistance: function(b, d) {
+        var j = this._aLunarMonthTable[b];
+        var c = 0;
+        var a = 0;
+        var e = 0;
+        var k = 1;
+        var h = {nMonthDate: 0,nLeapMonthDate: 0};
+        for (var f = 0, g = j.length; f < g; f++) {
+            h = this._getDateOfLunarMonthType(j[f]);
+            if (d < (e + h.nMonthDate)) {
+                c = f + 1;
+                a = (d - e) + 1;
+                k = 1;
+                break;
+            }
+            e = e + h.nMonthDate;
+            if (d < e + h.nLeapMonthDate) {
+                c = f + 1;
+                a = (d - e) + 1;
+                k = 2;
+                break;
+            }
+            e = e + h.nLeapMonthDate;
+        }
+        var l = this.oCoreDate((b + this.getRealMinYear()), c, a, k);
+        return l;
+    },_getLunarDateListUseDistance: function(a, n, b) {
+        var f = [];
+        var m = {};
+        var h = this._getLunarDateUseDistance(a, b);
+        var l = h.month;
+        var e = h.date;
+        var k = h.monthtype;
+        var g = this._aLunarMonthTable[a];
+        var d = this._getDateOfLunarMonthType(g[l - 1]);
+        for (var c = 0; c < n; c++) {
+            if (k == 1 && e > d.nMonthDate) {
+                e = 1;
+                k = 2;
+            }
+            if (k == 2 && e > d.nLeapMonthDate) {
+                if (l < 12) {
+                    l++;
+                } else {
+                    a++;
+                    g = this._aLunarMonthTable[a];
+                    l = 1;
+                }
+                e = 1;
+                k = 1;
+                d = this._getDateOfLunarMonthType(g[l - 1]);
+            }
+            m = this.oCoreDate((a + this.getRealMinYear()), l, e, k);
+            f.push(m);
+            e++;
+        }
+        return f;
+    },_getLunarDistanceUseDate: function(c) {
+        var f = {nIndex: 0,nDistance: 0};
+        f.nIndex = c.year - this.getRealMinYear();
+        if (f.nIndex < 0 || f.nIndex >= this._aLunarMonthTable.length) {
+            return false;
+        }
+        var a = this._aLunarMonthTable[f.nIndex];
+        var g = c.month - 1;
+        var e = 0;
+        var b = null;
+        for (var d = 0; d < g; d++) {
+            b = this._getDateOfLunarMonthType(a[d]);
+            e = e + b.nMonthDate + b.nLeapMonthDate;
+        }
+        if (c.monthtype == 2) {
+            b = this._getDateOfLunarMonthType(a[g]);
+            e = e + b.nMonthDate;
+        }
+        f.nDistance = e + c.date - 1;
+        return f;
+    },_getDateOfLunarMonthType: function(b) {
+        var a = {nMonthDate: 0,nLeapMonthDate: 0};
+        switch (b) {
+            case 1:
+                a.nMonthDate = 29;
+                a.nLeapMonthDate = 0;
+                break;
+            case 2:
+                a.nMonthDate = 30;
+                a.nLeapMonthDate = 0;
+                break;
+            case 3:
+                a.nMonthDate = 29;
+                a.nLeapMonthDate = 29;
+                break;
+            case 4:
+                a.nMonthDate = 29;
+                a.nLeapMonthDate = 30;
+                break;
+            case 5:
+                a.nMonthDate = 30;
+                a.nLeapMonthDate = 29;
+                break;
+            case 6:
+                a.nMonthDate = 30;
+                a.nLeapMonthDate = 30;
+                break;
+        }
+        return a;
+    },_IsRightIndex: function(e, a) {
+        var d = null;
+        var g = this._aSolarMatchTable[a];
+        if (g) {
+            d = {nMoveIndex: 0,nDistance: 0};
+            var c = this.oCoreDate(g.year[0], g.month[0], g.date[0], 0);
+            var b = this.oCoreDate(g.year[1], g.month[1], g.date[1], 0);
+            var f = this._getSolarDistance(c, e);
+            if (f < 0) {
+                d.nMoveIndex = -1;
+            } else {
+                if (f > 0) {
+                    d.nDistance = f;
+                    f = this._getSolarDistance(b, e);
+                    if (f > 0) {
+                        d.nMoveIndex = 1;
+                    }
+                }
+            }
+        }
+        return d;
+    },getDateIndexInfo: function(c) {
+        if (!c || c.monthtype !== 0) {
+            return false;
+        }
+        var d = {oLunar: null,nOrder: 0,nDay: 0,bIsLastDay: false,bIsLastDate: false};
+        var b = this.getJavascriptDateFormat(c);
+        var a = this.getDateOfMonth(c.year, c.month);
+        d.oLunar = this.getCalculateSolarLunar(c);
+        d.nOrder = Math.floor((c.date - 1) / 7) + 1;
+        d.nDay = b.getDay();
+        if (c.date + 7 > a) {
+            d.bIsLastDay = true;
+        }
+        if (c.date == a) {
+            d.bIsLastDate = true;
+        }
+        return d;
+    },getDateForIndexInfo: function(b, d, c, f) {
+        var e = this.oCoreDate(b, d, 1, c);
+        var h = this.getDateIndexInfo(e);
+        var g = f.nOrder - 1;
+        var a = 0;
+        if (f.nDay < h.nDay) {
+            a = (7 + f.nDay) - h.nDay;
+        } else {
+            a = f.nDay - h.nDay;
+        }
+        a = (g * 7) + a;
+        return this.getDateUseDistance(e, a);
+    },getDateForLastDay: function(b, f, e, h) {
+        var d = this.getDateOfMonth(b, f, e);
+        var c = this.oCoreDate(b, f, d, e);
+        var g = this.getDateIndexInfo(c);
+        var a = 0;
+        if (h <= g.nDay) {
+            a = g.nDay - h;
+        } else {
+            a = (7 - h) + g.nDay;
+        }
+        return this.getDateUseDistance(c, -a);
+    },getDay: function(c) {
+        var a = null;
+        var b = null;
+        if (c.monthtype >= 1) {
+            var d = this.getCalculateSolarLunar(c);
+            b = this.getJavascriptDateFormat(d);
+            a = b.getDay();
+        } else {
+            b = this.getJavascriptDateFormat(c);
+            a = b.getDay();
+        }
+        return a;
+    },getDayName: function(a) {
+        return this._aDayName[a];
+    },getStartDayIndexOfMonth: function(b, e, d, g) {
+        var c = 7;
+        var a = this.getStartDayOfMonth(b, e, d);
+        var f = g;
+        if (f >= c) {
+            f = 0;
+        }
+        a = a - f;
+        if (a < 0) {
+            a = c + a;
+        }
+        return a;
+    },getSexagenaryCycle: function(b) {
+        var a = (b.monthtype > 0) ? b : this.getCalculateSolarLunar(b);
+        return {oYear: this.getSexagenaryCycleYear(a.year),oMonth: this.getSexagenaryCycleMonth(a),oDate: this.getSexagenaryCycleDate(a)};
+    },getSexagenaryCycleYear: function(b) {
+        var c = 1924;
+        var a = b - c;
+        return this._getSexagenaryCycleValue(a);
+    },getSexagenaryCycleMonth: function(c) {
+        var e = 2008;
+        var d = 11;
+        var a = (c.year - e) * 12;
+        var b = c.month - d;
+        return this._getSexagenaryCycleValue(a + b);
+    },getSexagenaryCycleDate: function(c) {
+        var b = this.oCoreDate(2010, 4, 1, 1);
+        var a = this.getDistanceUseDate(b, c);
+        return this._getSexagenaryCycleValue(a);
+    },_getSexagenaryCycleValue: function(a) {
+        var c = (a >= 0) ? a % 10 : (10 - (-a % 10)) % 10;
+        var b = (a >= 0) ? a % 12 : (12 - (-a % 12)) % 12;
+        return {sKorean: this._aTheTenCelestialStemsKor[c] + this._a12ZodiacAnimalSignsKor[b],sChinese: this._aTheTenCelestialStems[c] + this._a12ZodiacAnimalSigns[b]};
+    },getDetailDayType: function(b, c, a) {
+        b = parseInt(b);
+        c = typeof c == "string" ? parseInt(c.replace(/^0/, "")) : c;
+        a = typeof a == "string" ? parseInt(a.replace(/^0/, "")) : a;
+        if (b == 0 && c == 0) {
+            return "";
+        } else {
+            return (b == 0 ? "" : (b + "년")) + (c == 0 ? "" : (c + "개월")) + (a == 0 ? "" : (a + "일"));
+        }
+    },getDetailDayType2: function(b, c, a) {
+        b = parseInt(b);
+        c = typeof c == "string" ? parseInt(c.replace(/^0/, "")) : c;
+        a = typeof a == "string" ? parseInt(a.replace(/^0/, "")) : a;
+        if (b == 0 && c == 0) {
+            return "";
+        } else {
+			c += (b*12);
+            return (c == 0 ? "" : (c + "개월 ")) + (a == 0 ? "" : (a + "일"));
+        }
+	}};
+
+var ayear = 2009;
+var amonth = 9;
+var adate = 5;
+	
+var g = DateCoreAPI.getDateIndexInfo(DateCoreAPI.oCoreDate(ayear, amonth, adate));
+var b = DateCoreAPI.getDistanceUseDate(DateCoreAPI.getCoreDateFormat(new Date()), DateCoreAPI.oCoreDate(ayear, amonth, adate));
+var d = DateCoreAPI.getDistanceInfoUseDate(DateCoreAPI.getCoreDateFormat(new Date()), DateCoreAPI.oCoreDate(ayear, amonth, adate));
+var f = DateCoreAPI.getDetailDayType(d.year, d.month, d.date);
+var f2 = DateCoreAPI.getDetailDayType2(d.year, d.month, d.date);
+f = f != "" ? "만 " + f + "" : f;
+f2 = f2 != "" ? f2 + "" : f2;
+
+b = b <= 0 ? b - 1 : b;
+var c = (b > -1 ? b : b) + "일" + f;
+//document.write('* 기준일은 <span class="t_point">' + DateCoreAPI.getDayName(g.nDay) + "요일</span>이며, <br>" + (b < 0 ? '<span class="t_pad">오늘은 기준일부터</span> <span class="t_point">' + (b * -1) + "일 " + f + "</span> 째 되는 날입니다." : '<span class="t_pad">오늘부터 기준일까지는</span> <span class="t_point">' + c + "</span> 남았습니다."));
+document.write( "<h1>" );
+document.write( f +" ("+(b * -1) + "일)<br><br>" );
+document.write( f2 +" ("+(b * -1) + "일)" );
+
+window.nydate = f2+" ("+(b * -1) + "일)" ;
+</script>
+<a href="#" onclick="navigator.clipboard.writeText(window.nydate);">복사</a>
+
+</h1>
+</body>
